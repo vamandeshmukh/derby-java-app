@@ -9,26 +9,34 @@ import java.sql.Statement;
 
 /**
  * 
- * @author Vaman Deshmukh 
+ * @author Vaman Deshmukh
  *
  */
 
 public class App {
 
-	private static String url = "jdbc:derby:E:\\deloitte\\hr";
+	private static String url = "jdbc:derby:E:\\ness\\hr";
 	private static Connection con = null;
 	private static Statement stmt = null;
 
 	public static void main(String[] args) throws Exception {
 		System.out.println("Start");
 		App.createConnection();
-		Thread.sleep(2000);
-		App.createTable();
-		Thread.sleep(2000);
+		Thread.sleep(1000);
+//		App.createTable();
+//		Thread.sleep(2000);
 		App.insertRecords(101, "Sonu", 10.50);
-		Thread.sleep(2000);
+		Thread.sleep(1000);
 		App.selectRecords();
-		Thread.sleep(2000);
+		Thread.sleep(1000);
+		App.updateRecords();
+		Thread.sleep(1000);
+		App.selectRecords();
+		Thread.sleep(1000);
+		App.deleteRecords();
+		Thread.sleep(1000);
+		App.selectRecords();
+		Thread.sleep(1000);
 		App.shutdown();
 		System.out.println("end");
 	}
@@ -41,7 +49,6 @@ public class App {
 			System.out.println(con);
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -66,6 +73,32 @@ public class App {
 			con = DriverManager.getConnection(App.url);
 			stmt = con.createStatement();
 			stmt.execute("insert into emp values (101, 'Sonu', 10.50)");
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private static void updateRecords() {
+		System.out.println("Updating records...");
+		try {
+			con = DriverManager.getConnection(App.url);
+			stmt = con.createStatement();
+			stmt.execute("update emp set salary = salary * 2 where eid = 101");
+		} catch (SQLException sqlExcept) {
+			sqlExcept.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	private static void deleteRecords() {
+		System.out.println("Deleting records...");
+		try {
+			con = DriverManager.getConnection(App.url);
+			stmt = con.createStatement();
+			stmt.execute("delete from emp where salary > 500.0");
 		} catch (SQLException sqlExcept) {
 			sqlExcept.printStackTrace();
 		} catch (Exception ex) {
