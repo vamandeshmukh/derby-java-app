@@ -144,8 +144,7 @@ public class App {
 				con.close();
 			}
 		} catch (SQLException sqlExcept) {
-			System.out.println("Done");
+			System.out.println("...done.");
 		}
-
 	}
 }
